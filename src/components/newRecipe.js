@@ -5,6 +5,8 @@ import { data } from '../data';
 //input & button element, we can even use default stuff but let's try this
 import { Input, ButtonGroup } from 'react-native-elements';
 
+import Icon from 'react-native-vector-icons';
+
 //note
 //A possible good idea is to store all the var when "submit" and pass this trough push on the array, 
 //but we've to see if it work when you reload the app
@@ -48,7 +50,7 @@ const NewRecipe = () => {
         addedRecipe['id'] = 4
         addedRecipe['title'] = textTitle
         addedRecipe['recipe'] = textRecipe
-        example.data.push (addedRecipe)
+        first.data.push (addedRecipe)
     } else if (selectedIndex === 1) {
       console.log ('inside else if')
       const first = data.filter (t => t.title === 'Sweet')[0] 
@@ -56,7 +58,7 @@ const NewRecipe = () => {
       addedRecipe['id'] = 4
       addedRecipe['title'] = textTitle
       addedRecipe['recipe'] = textRecipe
-      example.data.push (addedRecipe)
+      first.data.push (addedRecipe)
       Alert.alert ('Congratulazioni', 'Hai salvato correttamente la ricetta')
     } else {
       console.log ('inside else')

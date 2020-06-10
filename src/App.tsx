@@ -2,7 +2,7 @@ import React from 'react';
 
 //Navigation Stuff
 import 'react-native-gesture-handler';
-import { NavigationContainer, StackRouter } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -41,8 +41,8 @@ const App = () => {
         keyboardHidesNavigationBar = {true}
         shifting = {true} //false this if don't like the effect of hiding label
         screenOptions = {({ route }) => ({
-          tabBarIcon: ({ focused, color, size = 25 }) => {
-          let iconName = focused;
+          tabBarIcon: ({ focused, color}) => {
+          let iconName: string;
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Ricettario') {
@@ -50,12 +50,11 @@ const App = () => {
           } else if (route.name === 'Nuova ricetta') {
             iconName = focused ? 'file-document-edit' : 'file-document-edit-outline';
           }
-          return <Icon name= {iconName} color={color} size={size}/>
+            return <Icon name= {iconName} color={color} size={25}/>
         }
       })}
       >
         <MaterialBottomTabs.Screen name = "Home" component = {Home}/>
-        {/* <MaterialBottomTabs.Screen name = "Ricettario" children = {createRecipeList} /> */}
         <MaterialBottomTabs.Screen name = "Ricettario" component = {MyStack} />
         <MaterialBottomTabs.Screen name = "Nuova ricetta" component = {NewRecipe} />
       </MaterialBottomTabs.Navigator>

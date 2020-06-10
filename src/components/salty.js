@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SectionList, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -9,16 +9,8 @@ const Salty = ({ navigation }) => {
 
   console.log ('Log Salty Recipe');
 
-  const [ reState, setReState ] = useState (false)
-
   const backButton = () => {
     navigation.navigate ('Ricettario')
-  }
-  
-  const refresh = () => {
-    setReState (true)
-    console.log (reState)
-    setReState (false)
   }
 
   const saltyData = data.find (t => t.title === 'Salty')
@@ -35,23 +27,20 @@ const Salty = ({ navigation }) => {
           </Text>
         </View>
         <SectionList
-        sections= { [ saltyData ] }
-        keyExtractor = { (item, index) => item + index}
-        renderItem = { ( { item } ) =>             
-          <View style={Styles.boxList}> {/* Maybe this isn't necessary*/}
-            <Text style={Styles.titleList}> {item.title}</Text>
-            <Text style={Styles.list}> Ricetta: {item.recipe}</Text>
-          </View>}
-        extraData = { reState } //how does it work ?
-        ListEmptyComponent = { 
-          <TouchableOpacity style= {Styles.empty}>
-            <Text style={Styles.emptyText}>Add some recipe to your CookBook</Text> 
-          </TouchableOpacity> }  />
-        <View style = {Styles.buttonContainer}>
-          <TouchableOpacity onPress = {refresh}>
-            <Text style = {Styles.buttonTextRefresh}>Refresh</Text>
-          </TouchableOpacity>
-        </View>
+          sections= { [ saltyData ] }
+          keyExtractor = { (item, index) => item + index }
+          renderItem = { ( { item } ) =>             
+            <View style={Styles.boxList}>
+              <Text style={Styles.titleList}> {item.title}</Text>
+              <Text style={Styles.list}> Ricetta: {item.recipe}</Text>
+            </View>
+          }
+          ListEmptyComponent = { 
+            <TouchableOpacity style= {Styles.empty}>
+              <Text style={Styles.emptyText}>Add some recipe to your CookBook</Text> 
+            </TouchableOpacity> 
+          }  
+        />
       </View>
     </>
   )
@@ -121,8 +110,9 @@ const Styles = StyleSheet.create ({
     width: 200,
     marginVertical: 10,
     borderRadius: 8,
-    alignSelf: 'center'
+    alignSelf: 'center',
   }, 
+
   buttonTextRefresh: {
     textAlign: 'center',
     marginVertical: 5,
