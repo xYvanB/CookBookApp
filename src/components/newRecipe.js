@@ -5,12 +5,6 @@ import { data } from '../data';
 //input & button element, we can even use default stuff but let's try this
 import { Input, ButtonGroup } from 'react-native-elements';
 
-import Icon from 'react-native-vector-icons';
-
-//note
-//A possible good idea is to store all the var when "submit" and pass this trough push on the array, 
-//but we've to see if it work when you reload the app
-
 const NewRecipe = () => {
 
   console.log ('--------------------------')
