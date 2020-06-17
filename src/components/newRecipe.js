@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity, Alert } from 'react-native';
 import { data } from '../data';
 
@@ -16,7 +16,7 @@ const NewRecipe = () => {
   
   //used for clear input, need to see how it work correctly
   //more info: https://react-native-elements.github.io/react-native-elements/docs/input.html
-  const inputText = useRef(textTitle, textRecipe);
+  // const inputText = useRef(textTitle, textRecipe);
 
   //used for "Button group" component, it require a number as an index, so no string allowed
   const [ selectedIndex, setSelectedIndex ] = useState (NaN); 
@@ -30,6 +30,12 @@ const NewRecipe = () => {
       console.log ('--------------------------')
       console.log ('Dio dolce')
     }
+  }
+
+  const resetInputs = () => {
+    setTextRecipe('')
+    setTextTitle('')
+    setSelectedIndex(NaN)
   }
 
   const saveRecipe = () => {
@@ -53,7 +59,7 @@ const NewRecipe = () => {
       addedRecipe['title'] = textTitle
       addedRecipe['recipe'] = textRecipe
       first.data.push (addedRecipe)
-      Alert.alert ('Congratulazioni', 'Hai salvato correttamente la ricetta')
+      Alert.alert ('Congratulazioni', 'Hai salvato correttamente la ricetta', [{text: 'OK', onPress: resetInputs}], { cancelable: false })
     } else {
       console.log ('inside else')
       Alert.alert('Errore','Seleziona una categoria per la ricetta prima di salvarla')
@@ -69,17 +75,18 @@ const NewRecipe = () => {
 
       <View style={styles.menu}>
         <Input 
-          ref = {inputText}
+          // ref = {inputText}
           placeholder = 'Titolo'
           returnKeyLabel = 'next'
           onChangeText = { textTitle => setTextTitle(textTitle)}
           selectionColor = '#e57373'
           type = 'text'
           leftIcon = {{ type: 'feather', name: 'type', size: 20}}
-          rightIcon = {{ type: 'feather', name: 'delete', size: 20}} 
+          rightIcon = {{ type: 'feather', name: 'delete', size: 20}}
+          value={textTitle}
         />
         <Input
-          ref = {inputText}
+          // ref = {inputText}
           placeholder = 'Ricetta'
           type = 'text'
           textBreakStrategy = 'balanced'
@@ -88,6 +95,7 @@ const NewRecipe = () => {
           leftIcon = {{ type: 'feather', name: 'italic', size: 20 }}
           rightIcon = {{ type: 'feather', name: 'delete', size: 20}}
           multiline = {true}
+          value={textRecipe}
         />
 
         <ButtonGroup 
