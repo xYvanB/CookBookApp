@@ -1,34 +1,33 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { data } from '../data';
+import React, { useState, useRef, useCallback } from 'react'
+import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import { data } from '../data'
 
 //input & button element, we can even use default stuff but let's try this
-import { Input, ButtonGroup } from 'react-native-elements';
+import { Input, ButtonGroup } from 'react-native-elements'
 
 const NewRecipe = () => {
+  console.log('--------------------------')
+  console.log('Log del newRecipe')
+  console.log('--------------------------')
 
-  console.log ('--------------------------')
-  console.log ('Log del newRecipe')
-  console.log ('--------------------------')
-
-  const [ textTitle, setTextTitle ] = useState ('');
-  const [ textRecipe, setTextRecipe ] = useState ('');
+  const [textTitle, setTextTitle] = useState('')
+  const [textRecipe, setTextRecipe] = useState('')
 
   //used for "Button group" component, it require a number as an index, so no string allowed
-  const [ selectedIndex, setSelectedIndex ] = useState (NaN); 
+  const [selectedIndex, setSelectedIndex] = useState(NaN)
 
-  const recipeRef = useRef(null);
+  const recipeRef = useRef(null)
 
   const onTitleSubmit = () => recipeRef?.current.focus()
 
   const changeCategory = (number) => {
     setSelectedIndex(number)
     if (number === 0) {
-      console.log ('--------------------------')
-      console.log ('Dio salato')
+      console.log('--------------------------')
+      console.log('Dio salato')
     } else {
-      console.log ('--------------------------')
-      console.log ('Dio dolce')
+      console.log('--------------------------')
+      console.log('Dio dolce')
     }
   }
 
@@ -39,30 +38,32 @@ const NewRecipe = () => {
   }
 
   const saveRecipe = () => {
-    console.log ('--------------------------')
-    console.log ('title: ', textTitle, ' recipe: ', textRecipe, ' category: ', selectedIndex === 0 ? 'Salty' : 'Sweet')
-    console.log ('--------------------------')
-    console.log (data)
+    console.log('--------------------------')
+    console.log('title: ', textTitle, ' recipe: ', textRecipe, ' category: ', selectedIndex === 0 ? 'Salty' : 'Sweet')
+    console.log('--------------------------')
+    console.log(data)
     if (selectedIndex === 0) {
-        console.log ('inside if')
-        const first = data.filter (t => t.title === 'Sweet')[0] 
-        let addedRecipe = {}
-        addedRecipe['id'] = 4
-        addedRecipe['title'] = textTitle
-        addedRecipe['recipe'] = textRecipe
-        first.data.push (addedRecipe)
-    } else if (selectedIndex === 1) {
-      console.log ('inside else if')
-      const first = data.filter (t => t.title === 'Sweet')[0] 
-      let addedRecipe = {}
+      console.log('inside if')
+      const first = data.filter((t) => t.title === 'Sweet')[0]
+      const addedRecipe = {}
       addedRecipe['id'] = 4
       addedRecipe['title'] = textTitle
       addedRecipe['recipe'] = textRecipe
-      first.data.push (addedRecipe)
-      Alert.alert ('Congratulazioni', 'Hai salvato correttamente la ricetta', [{text: 'OK', onPress: resetInputs}], { cancelable: false })
+      first.data.push(addedRecipe)
+    } else if (selectedIndex === 1) {
+      console.log('inside else if')
+      const first = data.filter((t) => t.title === 'Sweet')[0]
+      const addedRecipe = {}
+      addedRecipe['id'] = 4
+      addedRecipe['title'] = textTitle
+      addedRecipe['recipe'] = textRecipe
+      first.data.push(addedRecipe)
+      Alert.alert('Congratulazioni', 'Hai salvato correttamente la ricetta', [{ text: 'OK', onPress: resetInputs }], {
+        cancelable: false,
+      })
     } else {
-      console.log ('inside else')
-      Alert.alert('Errore','Seleziona una categoria per la ricetta prima di salvarla')
+      console.log('inside else')
+      Alert.alert('Errore', 'Seleziona una categoria per la ricetta prima di salvarla')
     }
   }
 
@@ -74,39 +75,39 @@ const NewRecipe = () => {
       </View>
       <ScrollView scrollEnabled={false} contentContainerStyle={styles.menu}>
         <Input
-          placeholder = 'Titolo'
-          returnKeyType = 'next'
-          onChangeText = { textTitle => setTextTitle(textTitle)}
-          selectionColor = '#e57373'
-          type = 'text'
-          leftIcon = {{ type: 'feather', name: 'type', size: 20}}
-          rightIcon = {{ type: 'feather', name: 'delete', size: 20}}
+          placeholder="Titolo"
+          returnKeyType="next"
+          onChangeText={(textTitle) => setTextTitle(textTitle)}
+          selectionColor="#e57373"
+          type="text"
+          leftIcon={{ type: 'feather', name: 'type', size: 20 }}
+          rightIcon={{ type: 'feather', name: 'delete', size: 20 }}
           value={textTitle}
           onSubmitEditing={onTitleSubmit}
         />
         <Input
           ref={recipeRef}
-          placeholder = 'Ricetta'
-          type = 'text'
-          textBreakStrategy = 'balanced'
-          onChangeText = { textRecipe => setTextRecipe(textRecipe)}
-          returnKeyType = 'send'
-          leftIcon = {{ type: 'feather', name: 'italic', size: 20 }}
-          rightIcon = {{ type: 'feather', name: 'delete', size: 20}}
-          multiline = {true}
+          placeholder="Ricetta"
+          type="text"
+          textBreakStrategy="balanced"
+          onChangeText={(textRecipe) => setTextRecipe(textRecipe)}
+          returnKeyType="send"
+          leftIcon={{ type: 'feather', name: 'italic', size: 20 }}
+          rightIcon={{ type: 'feather', name: 'delete', size: 20 }}
+          multiline={true}
           value={textRecipe}
         />
 
-        <ButtonGroup 
-          onPress = {changeCategory}
-          selectedIndex = {selectedIndex}
-          buttons= {['Salty', 'Sweet']}
-          containerStyle = {styles.buttonStyle}
-          buttonStyle = {styles.buttonStyle}
-          textStyle = {styles.buttonText}
-          innerBorderStyle = {styles.innerBorder}
-          selectedTextStyle = {styles.selectedButton}
-          selectedButtonStyle = {styles.selectedButtonBG}
+        <ButtonGroup
+          onPress={changeCategory}
+          selectedIndex={selectedIndex}
+          buttons={['Salty', 'Sweet']}
+          containerStyle={styles.buttonStyle}
+          buttonStyle={styles.buttonStyle}
+          textStyle={styles.buttonText}
+          innerBorderStyle={styles.innerBorder}
+          selectedTextStyle={styles.selectedButton}
+          selectedButtonStyle={styles.selectedButtonBG}
         />
 
         <TouchableOpacity style={styles.buttonContainer} onPress={saveRecipe}>
@@ -114,19 +115,19 @@ const NewRecipe = () => {
         </TouchableOpacity>
       </ScrollView>
     </>
-  ) 
+  )
 }
 
 const styles = StyleSheet.create({
   test: {
     width: 100,
-    height: 50
+    height: 50,
   },
   menu: {
     alignItems: 'center',
     display: 'flex',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   textIntro: {
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   result: {
     margin: 8,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   //Save Button
@@ -151,13 +152,13 @@ const styles = StyleSheet.create({
     width: 200,
     marginVertical: 10,
     borderRadius: 8,
-  },  
+  },
   buttonTextSave: {
     textAlign: 'center',
     marginVertical: 5,
     color: 'white',
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   //Fin Save Button
 
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    color: '#e57373'
+    color: '#e57373',
   },
   selectedButton: {
     color: 'white',
@@ -180,6 +181,6 @@ const styles = StyleSheet.create({
     width: 2,
   },
   //Fin BottonGroup
-});
+})
 
 export default NewRecipe

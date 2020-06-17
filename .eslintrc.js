@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     "prettier/prettier": "warn",
     "linebreak-style": ["warn", "unix"],
+    "linebreak-style": ["error", "windows"],
     "semi": ["warn", "never"],
     "no-console": "off",
     "quotes": [2, "single"],
