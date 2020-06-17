@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity, Alert } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { data } from '../data';
 
 //input & button element, we can even use default stuff but let's try this
@@ -13,13 +13,13 @@ const NewRecipe = () => {
 
   const [ textTitle, setTextTitle ] = useState ('');
   const [ textRecipe, setTextRecipe ] = useState ('');
-  
-  //used for clear input, need to see how it work correctly
-  //more info: https://react-native-elements.github.io/react-native-elements/docs/input.html
-  // const inputText = useRef(textTitle, textRecipe);
 
   //used for "Button group" component, it require a number as an index, so no string allowed
   const [ selectedIndex, setSelectedIndex ] = useState (NaN); 
+
+  const recipeRef = useRef(null);
+
+  const onTitleSubmit = () => recipeRef?.current.focus()
 
   const changeCategory = (number) => {
     setSelectedIndex(number)
@@ -72,21 +72,20 @@ const NewRecipe = () => {
         <Text style={styles.textIntro}>Aggiungi una ricetta</Text>
         <Text style={styles.textUnderIntro}>Assicurati di compilare tutti i campi</Text>
       </View>
-
-      <View style={styles.menu}>
-        <Input 
-          // ref = {inputText}
+      <ScrollView scrollEnabled={false} contentContainerStyle={styles.menu}>
+        <Input
           placeholder = 'Titolo'
-          returnKeyLabel = 'next'
+          returnKeyType = 'next'
           onChangeText = { textTitle => setTextTitle(textTitle)}
           selectionColor = '#e57373'
           type = 'text'
           leftIcon = {{ type: 'feather', name: 'type', size: 20}}
           rightIcon = {{ type: 'feather', name: 'delete', size: 20}}
           value={textTitle}
+          onSubmitEditing={onTitleSubmit}
         />
         <Input
-          // ref = {inputText}
+          ref={recipeRef}
           placeholder = 'Ricetta'
           type = 'text'
           textBreakStrategy = 'balanced'
@@ -113,8 +112,7 @@ const NewRecipe = () => {
         <TouchableOpacity style={styles.buttonContainer} onPress={saveRecipe}>
           <Text style={styles.buttonTextSave}>Salva ricetta</Text>
         </TouchableOpacity>
-
-      </View>
+      </ScrollView>
     </>
   ) 
 }
