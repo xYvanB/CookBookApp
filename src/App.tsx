@@ -1,5 +1,13 @@
 import React from 'react';
 
+//import { YellowBox } from 'react-native';
+//We need this as react-native-paper work like a shit and they don't want to change anything for fix this warning
+//https://github.com/callstack/react-native-paper/issues/1520#issuecomment-564994646
+//All this shit doesn't work as intended as you keep see warning on metro bundler
+//The only solution is to don't use anymore react-native-paper
+//This 'fix' need YellowBox to be imported from react-native 
+//YellowBox.ignoreWarnings(['Require cycle:']);
+
 //Navigation Stuff
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
