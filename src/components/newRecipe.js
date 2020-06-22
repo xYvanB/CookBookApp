@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { data } from '../data'
 
 //input & button element, we can even use default stuff but let's try this
@@ -68,12 +68,13 @@ const NewRecipe = () => {
   }
 
   return (
-    <>
+    <SafeAreaView style={Styles.container}>
+      <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
       <View>
-        <Text style={styles.textIntro}>Aggiungi una ricetta</Text>
-        <Text style={styles.textUnderIntro}>Assicurati di compilare tutti i campi</Text>
+        <Text style={Styles.textIntro}>Aggiungi una ricetta</Text>
+        <Text style={Styles.textUnderIntro}>Assicurati di compilare tutti i campi</Text>
       </View>
-      <ScrollView scrollEnabled={false} contentContainerStyle={styles.menu}>
+      <ScrollView scrollEnabled={false} contentContainerStyle={Styles.menu}>
         <Input
           placeholder="Titolo"
           returnKeyType="next"
@@ -102,23 +103,27 @@ const NewRecipe = () => {
           onPress={changeCategory}
           selectedIndex={selectedIndex}
           buttons={['Salty', 'Sweet']}
-          containerStyle={styles.buttonStyle}
-          buttonStyle={styles.buttonStyle}
-          textStyle={styles.buttonText}
-          innerBorderStyle={styles.innerBorder}
-          selectedTextStyle={styles.selectedButton}
-          selectedButtonStyle={styles.selectedButtonBG}
+          containerStyle={Styles.buttonStyle}
+          buttonStyle={Styles.buttonStyle}
+          textStyle={Styles.buttonText}
+          innerBorderStyle={Styles.innerBorder}
+          selectedTextStyle={Styles.selectedButton}
+          selectedButtonStyle={Styles.selectedButtonBG}
         />
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={saveRecipe}>
-          <Text style={styles.buttonTextSave}>Salva ricetta</Text>
+        <TouchableOpacity style={Styles.buttonContainer} onPress={saveRecipe}>
+          <Text style={Styles.buttonTextSave}>Salva ricetta</Text>
         </TouchableOpacity>
       </ScrollView>
-    </>
+    </SafeAreaView>
   )
 }
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   test: {
     width: 100,
     height: 50,

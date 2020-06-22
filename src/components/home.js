@@ -1,27 +1,30 @@
-import React from 'react';
-import { StyleSheet, StatusBar, Text, View } from 'react-native';
+import React from 'react'
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
 
 const Home = () => {
-
   return (
-    <>
-      <StatusBar backgroundColor='#e57373' barStyle="light-content" /> 
-      <View style={styles.boxIntro}>
-        <Text style={styles.textIntro}>Welcome to my simple CookBook App</Text>
+    <SafeAreaView style={Styles.container}>
+      <StatusBar backgroundColor="#e57373" barStyle="light-content" />
+      <View style={Styles.boxIntro}>
+        <Text style={Styles.textIntro}>Welcome to my simple CookBook App</Text>
       </View>
-    </>
-  );
-};
+    </SafeAreaView>
+  )
+}
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
   boxIntro: {
     justifyContent: 'center',
     flex: 1,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
   },
   textIntro: {
     fontSize: 35,
     textAlign: 'center',
   },
-});
+})
 
-export default Home;
+export default Home
