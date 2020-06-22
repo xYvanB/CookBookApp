@@ -13,13 +13,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { data } from '../data'
 
-const screenHeight = Dimensions.get('screen').height
 const screenWidth = Dimensions.get('screen').width
 
 const Sweet = ({ navigation }) => {
   console.log('Log Sweet Recipe')
-  console.log('Height Screen:', screenHeight)
-  console.log('Width Screen:', screenWidth)
 
   const backButton = () => {
     navigation.navigate('Ricettario')
