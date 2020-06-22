@@ -1,12 +1,17 @@
 import React from 'react'
-import { SafeAreaView, SectionList, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, SafeAreaView, SectionList, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { data } from '../data'
 
+const screenHeight = Dimensions.get('screen').height
+const screenWidth = Dimensions.get('screen').width
+
 const Salty = ({ navigation }) => {
   console.log('Log Salty Recipe')
+  console.log('Height Screen:', screenHeight)
+  console.log('Width Screen:', screenWidth)
 
   const backButton = () => {
     navigation.navigate('Ricettario')
@@ -17,22 +22,30 @@ const Salty = ({ navigation }) => {
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
-      <TouchableOpacity onPress={backButton} style={Styles.backButton}>
-        <Icon name="close-circle-outline" size={30} color="#e57373" />
-      </TouchableOpacity>
+
       <View style={Styles.container}>
-        <View style={Styles.textContainer}>
-          <Text style={Styles.text}>Salty Recipes</Text>
+        <TouchableOpacity onPress={backButton} style={Styles.backButton}>
+          <Icon name="close-circle-outline" size={30} color="#000" style={Styles.backButton} />
+        </TouchableOpacity>
+        <View style={Styles.titleCategoryContainer}>
+          <Text style={Styles.titleCategory}>Salty Recipes</Text>
         </View>
         <SectionList
           sections={[saltyData]}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => (
-            <View style={Styles.boxList}>
-              <Text style={Styles.titleList}> {item.title}</Text>
-              <Text style={Styles.list}> Ricetta: {item.recipe}</Text>
-            </View>
-          )}
+          renderItem={({ item, index }) =>
+            index % 2 == 0 ? (
+              <View style={Styles.boxList1}>
+                <Text style={Styles.titleRecipe}> {item.title}</Text>
+                <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+              </View>
+            ) : (
+              <View style={Styles.boxList2}>
+                <Text style={Styles.titleRecipe}> {item.title}</Text>
+                <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+              </View>
+            )
+          }
           ListEmptyComponent={
             <TouchableOpacity style={Styles.empty}>
               <Text style={Styles.emptyText}>Add some recipe to your CookBook</Text>
@@ -49,38 +62,47 @@ const Styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginTop: 15,
     marginRight: 15,
+    zIndex: 30,
   },
   container: {
     flex: 1,
   },
-  text: {
+  titleCategory: {
     textAlign: 'center',
+    textAlignVertical: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    borderRadius: 5,
     backgroundColor: '#e57373',
     color: 'white',
-    width: 200,
+    width: screenWidth,
+    height: 50,
   },
-  textContainer: {
-    alignItems: 'center',
-    borderRadius: 8,
+  titleCategoryContainer: {
+    position: 'absolute',
+    zIndex: 1,
   },
 
   //SectionList Styles
-  boxList: {
+  boxList1: {
     borderColor: 'black',
     borderWidth: 2,
     marginHorizontal: 40,
     marginVertical: 10,
     height: 100,
   },
-  list: {
+  boxList2: {
+    borderColor: 'green',
+    borderWidth: 2,
+    marginHorizontal: 40,
+    marginVertical: 10,
+    height: 100,
+  },
+  recipe: {
     fontSize: 15,
     textAlign: 'center',
     color: 'gray',
   },
-  titleList: {
+  titleRecipe: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
