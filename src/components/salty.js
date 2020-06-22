@@ -24,9 +24,11 @@ const Salty = ({ navigation }) => {
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
 
       <View style={Styles.container}>
-        <TouchableOpacity onPress={backButton} style={Styles.backButton}>
-          <Icon name="close-circle-outline" size={30} color="#000" style={Styles.backButton} />
-        </TouchableOpacity>
+        <View style={Styles.backButton}>
+          <TouchableOpacity onPress={backButton}>
+            <Icon name="close-circle-outline" size={30} color="#fff" />
+          </TouchableOpacity>
+        </View>
         <View style={Styles.titleCategoryContainer}>
           <Text style={Styles.titleCategory}>Salty Recipes</Text>
         </View>
@@ -60,9 +62,10 @@ const Salty = ({ navigation }) => {
 const Styles = StyleSheet.create({
   backButton: {
     alignItems: 'flex-end',
-    marginTop: 15,
+    marginTop: 7,
     marginRight: 15,
-    zIndex: 30,
+    marginBottom: 25,
+    zIndex: 2,
   },
   container: {
     flex: 1,
