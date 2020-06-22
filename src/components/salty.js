@@ -62,9 +62,9 @@ const Salty = ({ navigation }) => {
 const Styles = StyleSheet.create({
   backButton: {
     alignItems: 'flex-end',
-    marginTop: 7,
-    marginRight: 15,
-    marginBottom: 25,
+    paddingTop: 9,
+    paddingRight: 15,
+    paddingBottom: 25,
     zIndex: 2,
   },
   container: {
@@ -72,13 +72,15 @@ const Styles = StyleSheet.create({
   },
   titleCategory: {
     textAlign: 'center',
-    textAlignVertical: 'center',
+    // textAlignVertical: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     backgroundColor: '#e57373',
     color: 'white',
     width: screenWidth,
     height: 50,
+    paddingTop: 12,
+    textTransform: 'uppercase',
   },
   titleCategoryContainer: {
     position: 'absolute',
