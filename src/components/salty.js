@@ -1,6 +1,14 @@
 import React from 'react'
-import { Dimensions, SafeAreaView, SectionList, StatusBar, StyleSheet, Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  Dimensions,
+  SafeAreaView,
+  SectionList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { data } from '../data'
