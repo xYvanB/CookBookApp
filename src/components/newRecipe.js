@@ -44,12 +44,15 @@ const NewRecipe = () => {
     console.log(data)
     if (selectedIndex === 0) {
       console.log('inside if')
-      const first = data.filter((t) => t.title === 'Sweet')[0]
+      const first = data.filter((t) => t.title === 'Salty')[0]
       const addedRecipe = {}
       addedRecipe['id'] = 4
       addedRecipe['title'] = textTitle
       addedRecipe['recipe'] = textRecipe
       first.data.push(addedRecipe)
+      Alert.alert('Congratulazioni', 'Hai salvato correttamente la ricetta', [{ text: 'OK', onPress: resetInputs }], {
+        cancelable: false,
+      })
     } else if (selectedIndex === 1) {
       console.log('inside else if')
       const first = data.filter((t) => t.title === 'Sweet')[0]
