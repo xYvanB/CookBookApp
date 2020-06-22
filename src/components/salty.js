@@ -64,6 +64,7 @@ const Styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: 'center',
+    borderRadius: 8,
   },
 
   //SectionList Styles
