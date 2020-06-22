@@ -1,12 +1,17 @@
 import React from 'react'
-import { SafeAreaView, SectionList, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, SafeAreaView, SectionList, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { data } from '../data'
 
-const Salty = ({ navigation }) => {
+const screenHeight = Dimensions.get('screen').height
+const screenWidth = Dimensions.get('screen').width
+
+const Sweet = ({ navigation }) => {
   console.log('Log Sweet Recipe')
+  console.log('Height Screen:', screenHeight)
+  console.log('Width Screen:', screenWidth)
 
   const backButton = () => {
     navigation.navigate('Ricettario')
@@ -17,22 +22,32 @@ const Salty = ({ navigation }) => {
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
-      <TouchableOpacity onPress={backButton} style={Styles.backButton}>
-        <Icon name="close-circle-outline" size={30} color="#e57373" />
-      </TouchableOpacity>
+
       <View style={Styles.container}>
-        <View style={Styles.textContainer}>
-          <Text style={Styles.text}>Sweet Recipes</Text>
+        <View style={Styles.backButton}>
+          <TouchableOpacity onPress={backButton}>
+            <Icon name="close-circle-outline" size={30} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        <View style={Styles.titleCategoryContainer}>
+          <Text style={Styles.titleCategory}>Sweet Recipes</Text>
         </View>
         <SectionList
           sections={[sweetData]}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => (
-            <View style={Styles.boxList}>
-              <Text style={Styles.titleList}> {item.title}</Text>
-              <Text style={Styles.list}> Ricetta: {item.recipe}</Text>
-            </View>
-          )}
+          renderItem={({ item, index }) =>
+            index % 2 == 0 ? (
+              <View style={Styles.boxList1}>
+                <Text style={Styles.titleRecipe}> {item.title}</Text>
+                <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+              </View>
+            ) : (
+              <View style={Styles.boxList2}>
+                <Text style={Styles.titleRecipe}> {item.title}</Text>
+                <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+              </View>
+            )
+          }
           ListEmptyComponent={
             <TouchableOpacity style={Styles.empty}>
               <Text style={Styles.emptyText}>Add some recipe to your CookBook</Text>
@@ -47,41 +62,52 @@ const Salty = ({ navigation }) => {
 const Styles = StyleSheet.create({
   backButton: {
     alignItems: 'flex-end',
-    marginTop: 15,
-    marginRight: 15,
+    paddingTop: 9,
+    paddingRight: 15,
+    paddingBottom: 25,
+    zIndex: 2,
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
   },
-  text: {
+  titleCategory: {
     textAlign: 'center',
+    // textAlignVertical: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    borderRadius: 5,
     backgroundColor: '#e57373',
     color: 'white',
-    width: 200,
+    width: screenWidth,
+    height: 50,
+    paddingTop: 12,
+    textTransform: 'uppercase',
   },
-  textContainer: {
-    alignItems: 'center',
-    borderRadius: 8,
+  titleCategoryContainer: {
+    position: 'absolute',
+    zIndex: 1,
   },
 
   //SectionList Styles
-  boxList: {
+  boxList1: {
     borderColor: 'black',
     borderWidth: 2,
     marginHorizontal: 40,
     marginVertical: 10,
     height: 100,
   },
-  list: {
+  boxList2: {
+    borderColor: 'green',
+    borderWidth: 2,
+    marginHorizontal: 40,
+    marginVertical: 10,
+    height: 100,
+  },
+  recipe: {
     fontSize: 15,
     textAlign: 'center',
     color: 'gray',
   },
-  titleList: {
+  titleRecipe: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
@@ -102,6 +128,25 @@ const Styles = StyleSheet.create({
     // fontSize: 30,
   },
   //Fin SectionList Styles
+
+  //Button Styles
+  buttonContainer: {
+    backgroundColor: '#e57373',
+    height: 40,
+    width: 200,
+    marginVertical: 10,
+    borderRadius: 8,
+    alignSelf: 'center',
+  },
+
+  buttonTextRefresh: {
+    textAlign: 'center',
+    marginVertical: 5,
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  //Fin Button Styles
 })
 
-export default Salty
+export default Sweet
