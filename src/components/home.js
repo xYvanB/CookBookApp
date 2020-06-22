@@ -4,7 +4,7 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
 const Home = () => {
   return (
     <SafeAreaView style={Styles.container}>
-      <StatusBar backgroundColor="#e57373" barStyle="light-content" />
+      <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
       <View style={Styles.boxIntro}>
         <Text style={Styles.textIntro}>Welcome to my simple CookBook App</Text>
       </View>
