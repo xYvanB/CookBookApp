@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Dimensions,
+  Image,
   SafeAreaView,
   SectionList,
   StatusBar,
@@ -23,7 +24,6 @@ const Salty = ({ navigation }) => {
   }
 
   const saltyData = data.find((t) => t.title === 'Salty')
-
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
@@ -43,13 +43,31 @@ const Salty = ({ navigation }) => {
           renderItem={({ item, index }) =>
             index % 2 == 0 ? (
               <View style={Styles.boxList1}>
-                <Text style={Styles.titleRecipe}> {item.title}</Text>
-                <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+                <View style={Styles.boxImg1}>
+                  <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
+                </View>
+                <View style={Styles.boxText1}>
+                  <View style={Styles.boxTitleRecipe}>
+                    <Text style={Styles.titleRecipe}> {item.title}</Text>
+                  </View>
+                  <View style={Styles.boxRecipe}>
+                    <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+                  </View>
+                </View>
               </View>
             ) : (
               <View style={Styles.boxList2}>
-                <Text style={Styles.titleRecipe}> {item.title}</Text>
-                <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+                <View style={Styles.boxImg2}>
+                  <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
+                </View>
+                <View style={Styles.boxText2}>
+                  <View style={Styles.boxTitleRecipe}>
+                    <Text style={Styles.titleRecipe}> {item.title}</Text>
+                  </View>
+                  <View style={Styles.boxRecipe}>
+                    <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+                  </View>
+                </View>
               </View>
             )
           }
@@ -94,28 +112,61 @@ const Styles = StyleSheet.create({
 
   //SectionList Styles
   boxList1: {
-    borderColor: 'black',
-    borderWidth: 2,
-    marginHorizontal: 40,
-    marginVertical: 10,
-    height: 100,
+    // borderBottomColor: 'black',
+    // borderBottomWidth: 1,
+    // marginHorizontal: 0,
+    // marginVertical: 0,
+    height: 200,
+    width: screenWidth,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
   },
+  boxImg1: {
+    width: screenWidth / 2,
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+  boxText1: {
+    width: screenWidth / 2,
+  },
+
   boxList2: {
-    borderColor: 'green',
-    borderWidth: 2,
-    marginHorizontal: 40,
-    marginVertical: 10,
-    height: 100,
+    // borderBottomColor: 'black',
+    // borderBottomWidth: 1,
+    // marginHorizontal: 0,
+    // marginVertical: 0,
+    height: 200,
+    width: screenWidth,
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
   },
-  recipe: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'gray',
+  boxImg2: {
+    width: screenWidth / 2,
+  },
+  boxText2: {
+    width: screenWidth / 2,
+  },
+  boxTitleRecipe: {
+    borderRadius: 5,
+    backgroundColor: '#e57373',
   },
   titleRecipe: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#333',
+  },
+  boxRecipe: {},
+  recipe: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'gray',
   },
   empty: {
     flex: 1,
