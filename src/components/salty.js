@@ -43,9 +43,7 @@ const Salty = ({ navigation }) => {
           renderItem={({ item, index }) =>
             index % 2 == 0 ? (
               <View style={Styles.boxList1}>
-                <View style={Styles.boxImg1}>
-                  <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
-                </View>
+                <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
                 <View style={Styles.boxText1}>
                   <View style={Styles.boxTitleRecipe}>
                     <Text style={Styles.titleRecipe}> {item.title}</Text>
@@ -57,9 +55,7 @@ const Salty = ({ navigation }) => {
               </View>
             ) : (
               <View style={Styles.boxList2}>
-                <View style={Styles.boxImg2}>
-                  <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
-                </View>
+                <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
                 <View style={Styles.boxText2}>
                   <View style={Styles.boxTitleRecipe}>
                     <Text style={Styles.titleRecipe}> {item.title}</Text>
@@ -112,42 +108,27 @@ const Styles = StyleSheet.create({
 
   //SectionList Styles
   boxList1: {
-    // borderBottomColor: 'black',
-    // borderBottomWidth: 1,
-    // marginHorizontal: 0,
-    // marginVertical: 0,
     height: 200,
     width: screenWidth,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
   },
-  boxImg1: {
-    width: screenWidth / 2,
-  },
   image: {
-    width: 200,
+    width: screenWidth / 2,
     height: 200,
+    resizeMode: 'stretch',
   },
   boxText1: {
     width: screenWidth / 2,
   },
 
   boxList2: {
-    // borderBottomColor: 'black',
-    // borderBottomWidth: 1,
-    // marginHorizontal: 0,
-    // marginVertical: 0,
     height: 200,
     width: screenWidth,
     flexDirection: 'row-reverse',
-    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  boxImg2: {
-    width: screenWidth / 2,
   },
   boxText2: {
     width: screenWidth / 2,
@@ -155,6 +136,7 @@ const Styles = StyleSheet.create({
   boxTitleRecipe: {
     borderRadius: 5,
     backgroundColor: '#e57373',
+    marginHorizontal: 5,
   },
   titleRecipe: {
     fontSize: 20,
@@ -181,7 +163,6 @@ const Styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
-    // fontSize: 30,
   },
   //Fin SectionList Styles
 
