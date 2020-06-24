@@ -1,9 +1,20 @@
 import React from 'react'
-import { SafeAreaView, SectionList, StatusBar, StyleSheet, Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  Dimensions,
+  Image,
+  SafeAreaView,
+  SectionList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { data } from '../data'
+
+const screenWidth = Dimensions.get('screen').width
 
 const Salty = ({ navigation }) => {
   console.log('Log Salty Recipe')
@@ -13,26 +24,49 @@ const Salty = ({ navigation }) => {
   }
 
   const saltyData = data.find((t) => t.title === 'Salty')
-
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
-      <TouchableOpacity onPress={backButton} style={Styles.backButton}>
-        <Icon name="close-circle-outline" size={30} color="#e57373" />
-      </TouchableOpacity>
+
       <View style={Styles.container}>
-        <View style={Styles.textContainer}>
-          <Text style={Styles.text}>Salty Recipes</Text>
+        <View style={Styles.backButton}>
+          <TouchableOpacity onPress={backButton}>
+            <Icon name="close-circle-outline" size={30} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        <View style={Styles.titleCategoryContainer}>
+          <Text style={Styles.titleCategory}>Salty Recipes</Text>
         </View>
         <SectionList
           sections={[saltyData]}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => (
-            <View style={Styles.boxList}>
-              <Text style={Styles.titleList}> {item.title}</Text>
-              <Text style={Styles.list}> Ricetta: {item.recipe}</Text>
-            </View>
-          )}
+          renderItem={({ item, index }) =>
+            index % 2 == 0 ? (
+              <View style={Styles.boxList1}>
+                <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
+                <View style={Styles.boxText1}>
+                  <View style={Styles.boxTitleRecipe}>
+                    <Text style={Styles.titleRecipe}> {item.title}</Text>
+                  </View>
+                  <View style={Styles.boxRecipe}>
+                    <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+                  </View>
+                </View>
+              </View>
+            ) : (
+              <View style={Styles.boxList2}>
+                <Image source={{ uri: 'https://picsum.photos/200/200' }} style={Styles.image} />
+                <View style={Styles.boxText2}>
+                  <View style={Styles.boxTitleRecipe}>
+                    <Text style={Styles.titleRecipe}> {item.title}</Text>
+                  </View>
+                  <View style={Styles.boxRecipe}>
+                    <Text style={Styles.recipe}> Ricetta: {item.recipe}</Text>
+                  </View>
+                </View>
+              </View>
+            )
+          }
           ListEmptyComponent={
             <TouchableOpacity style={Styles.empty}>
               <Text style={Styles.emptyText}>Add some recipe to your CookBook</Text>
@@ -47,43 +81,74 @@ const Salty = ({ navigation }) => {
 const Styles = StyleSheet.create({
   backButton: {
     alignItems: 'flex-end',
-    marginTop: 15,
-    marginRight: 15,
+    paddingTop: 9,
+    paddingRight: 15,
+    paddingBottom: 25,
+    zIndex: 2,
   },
   container: {
     flex: 1,
   },
-  text: {
+  titleCategory: {
     textAlign: 'center',
+    // textAlignVertical: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    borderRadius: 5,
     backgroundColor: '#e57373',
     color: 'white',
-    width: 200,
+    width: screenWidth,
+    height: 50,
+    paddingTop: 12,
+    textTransform: 'uppercase',
   },
-  textContainer: {
-    alignItems: 'center',
-    borderRadius: 8,
+  titleCategoryContainer: {
+    position: 'absolute',
+    zIndex: 1,
   },
 
   //SectionList Styles
-  boxList: {
-    borderColor: 'black',
-    borderWidth: 2,
-    marginHorizontal: 40,
-    marginVertical: 10,
-    height: 100,
+  boxList1: {
+    height: 200,
+    width: screenWidth,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
   },
-  list: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'gray',
+  image: {
+    width: screenWidth / 2,
+    height: 200,
+    resizeMode: 'stretch',
   },
-  titleList: {
+  boxText1: {
+    width: screenWidth / 2,
+  },
+
+  boxList2: {
+    height: 200,
+    width: screenWidth,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  boxText2: {
+    width: screenWidth / 2,
+  },
+  boxTitleRecipe: {
+    borderRadius: 5,
+    backgroundColor: '#e57373',
+    marginHorizontal: 5,
+  },
+  titleRecipe: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#333',
+  },
+  boxRecipe: {},
+  recipe: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'gray',
   },
   empty: {
     flex: 1,
@@ -98,7 +163,6 @@ const Styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
-    // fontSize: 30,
   },
   //Fin SectionList Styles
 
