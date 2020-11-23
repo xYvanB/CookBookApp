@@ -24,6 +24,7 @@ import Menu from './components/menu'
 import NewRecipe from './components/newRecipe'
 import Salty from './components/salty'
 import Sweet from './components/sweet'
+import testDatabase from './components/testDatabase'
 
 const App = () => {
   //try to use this for put salty and sweet screen inside "Ricettario"
@@ -57,6 +58,8 @@ const App = () => {
               iconName = focused ? 'menu-open' : 'menu'
             } else if (route.name === 'Nuova ricetta') {
               iconName = focused ? 'file-document-edit' : 'file-document-edit-outline'
+            } else if (route.name === 'Database') {
+              iconName = focused ? 'database-edit' : 'database'
             }
             return <Icon name={iconName} color={color} size={25} />
           },
@@ -65,6 +68,7 @@ const App = () => {
         <MaterialBottomTabs.Screen name="Home" component={Home} />
         <MaterialBottomTabs.Screen name="Ricettario" component={Menu} />
         <MaterialBottomTabs.Screen name="Nuova ricetta" component={NewRecipe} />
+        <MaterialBottomTabs.Screen name="Database" component={testDatabase} />
       </MaterialBottomTabs.Navigator>
     )
   }
