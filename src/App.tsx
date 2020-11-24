@@ -27,19 +27,8 @@ import Sweet from './components/sweet'
 import testDatabase from './components/testDatabase'
 
 const App = () => {
-  //try to use this for put salty and sweet screen inside "Ricettario"
   const Stack = createStackNavigator()
   const MaterialBottomTabs = createMaterialBottomTabNavigator()
-
-  // const MyStack = () => {
-  //   return (
-  //     <Stack.Navigator headerMode="none">
-  //       <Stack.Screen name="Ricettario" component={Menu} />
-  //       <Stack.Screen name="Salty" component={Salty} />
-  //       <Stack.Screen name="Sweet" component={Sweet} />
-  //     </Stack.Navigator>
-  //   )
-  // }
 
   const TabNavigator = () => {
     return (

@@ -5,7 +5,16 @@ import { data } from '../data'
 //input & button element, we can even use default stuff but let's try this
 import { Input, ButtonGroup } from 'react-native-elements'
 
+//Database Stuff
+import { openDatabase } from 'react-native-sqlite-storage'
+
 const NewRecipe = () => {
+  const db = openDatabase({
+    name: 'recipeTest2.db',
+    location: 'default',
+    createFromLocation: '~www/recipeTest2.db',
+  })
+
   console.log('--------------------------')
   console.log('Log del newRecipe')
   console.log('--------------------------')
@@ -44,23 +53,43 @@ const NewRecipe = () => {
     console.log(data)
     if (selectedIndex === 0) {
       console.log('inside if')
-      const first = data.filter((t) => t.title === 'Salty')[0]
-      const addedRecipe = {}
-      addedRecipe['id'] = 4
-      addedRecipe['title'] = textTitle
-      addedRecipe['recipe'] = textRecipe
-      first.data.push(addedRecipe)
+      // const first = data.filter((t) => t.title === 'Salty')[0]
+      // const addedRecipe = {}
+      // addedRecipe['id'] = 4
+      // addedRecipe['title'] = textTitle
+      // addedRecipe['recipe'] = textRecipe
+      // first.data.push(addedRecipe)
+
+      db.transaction(
+        function (tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS SaltyRecipes (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title, Recipe)')
+          tx.executeSql('INSERT INTO SaltyRecipes (Title, Recipe) VALUES (?,?)', [`${textTitle}`, `${textRecipe}`])
+        },
+        function (error) {
+          console.log('Transaction ERROR: ', error.message)
+        },
+        function () {
+          console.log('Database creato e ricetta inserita')
+        },
+      )
       Alert.alert('Congratulazioni', 'Hai salvato correttamente la ricetta', [{ text: 'OK', onPress: resetInputs }], {
         cancelable: false,
       })
     } else if (selectedIndex === 1) {
       console.log('inside else if')
-      const first = data.filter((t) => t.title === 'Sweet')[0]
-      const addedRecipe = {}
-      addedRecipe['id'] = 4
-      addedRecipe['title'] = textTitle
-      addedRecipe['recipe'] = textRecipe
-      first.data.push(addedRecipe)
+
+      db.transaction(
+        function (tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS SweetRecipes (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title, Recipe)')
+          tx.executeSql('INSERT INTO SweetRecipes (Title, Recipe) VALUES (?,?)', [`${textTitle}`, `${textRecipe}`])
+        },
+        function (error) {
+          console.log('Transaction ERROR: ', error.message)
+        },
+        function () {
+          console.log('Database creato e ricetta inserita')
+        },
+      )
       Alert.alert('Congratulazioni', 'Hai salvato correttamente la ricetta', [{ text: 'OK', onPress: resetInputs }], {
         cancelable: false,
       })

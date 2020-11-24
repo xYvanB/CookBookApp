@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+
+import { ButtonGroup } from 'react-native-elements'
 
 import { openDatabase } from 'react-native-sqlite-storage'
 
@@ -11,52 +13,172 @@ const testDatabase = () => {
     createFromLocation: '~www/recipeTest2.db',
   })
 
-  console.log('gesu è nato:', db)
+  // console.log('gesu è nato:', db)
 
-  const onPress = () => {
+  //used for "Button group" component, it require a number as an index, so no string allowed
+  const [selectedIndex, setSelectedIndex] = useState(NaN)
+
+  const onPress = (number) => {
+    setSelectedIndex(number)
     console.log('premimi tutto')
-    db.transaction(
-      function (tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS SaltyRecipes (Title, Recipe)')
-        tx.executeSql('INSERT INTO SaltyRecipes (Title, Recipe) VALUES (?,?)', ['Psto', 'pasto'])
-        tx.executeSql('INSERT INTO SaltyRecipes (Title, Recipe) VALUES (?,?)', ['Pasta', 'Diocane'])
-      },
-      function (error) {
-        console.log('Transaction ERROR: ', error.message)
-      },
-      function () {
-        console.log('Populated Database ok')
-      },
-    )
+    if (number === 0) {
+      db.transaction(
+        function (tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS SaltyRecipes (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title, Recipe)')
+          tx.executeSql('INSERT INTO SaltyRecipes (Title, Recipe) VALUES (?,?)', ['Pizza', 'Pasta'])
+          tx.executeSql('INSERT INTO SaltyRecipes (Title, Recipe) VALUES (?,?)', ['Pasta', 'Pizza'])
+        },
+        function (error) {
+          console.log('Transaction ERROR: ', error.message)
+        },
+        function () {
+          console.log('Database creato e/o dati inseriti')
+        },
+      )
+    } else {
+      db.transaction(
+        function (tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS SweetRecipes (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title, Recipe)')
+          tx.executeSql('INSERT INTO SweetRecipes (Title, Recipe) VALUES (?,?)', ['Torta di mele', 'pere'])
+          tx.executeSql('INSERT INTO SweetRecipes (Title, Recipe) VALUES (?,?)', ['Torta di pere', 'mele'])
+        },
+        function (error) {
+          console.log('Transaction ERROR: ', error.message)
+        },
+        function () {
+          console.log('Database creato e/o dati inseriti')
+        },
+      )
+    }
   }
 
-  const onShow = () => {
-    console.log('PORCODDIO')
+  const onSaltyShow = () => {
+    console.log('onSaltyShow')
     db.transaction(function (tx) {
       tx.executeSql(
         'SELECT count(*) AS mycount FROM SaltyRecipes',
         [],
         function (tx, rs) {
-          console.log('Record count: ' + rs.rows.item(0).mycount)
+          console.log('Numero di righe: ', rs.rows.item(0).mycount)
         },
         function (tx, error) {
-          console.log('SELECT error: ' + error.message)
+          console.log('Errore: ', error.message)
         },
       )
     })
+  }
+
+  const onSweetShow = () => {
+    console.log('onSweetShow')
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'SELECT count(*) AS mycount FROM SweetRecipes',
+        [],
+        function (tx, rs) {
+          console.log('Numero di righe: ', rs.rows.item(0).mycount)
+        },
+        function (tx, error) {
+          console.log('Errore: ', error.message)
+        },
+      )
+    })
+  }
+
+  const getSaltyData = () => {
+    db.transaction(
+      function (tx) {
+        const query = 'SELECT * FROM SaltyRecipes'
+
+        tx.executeSql(
+          query,
+          [],
+          function (tx, resultSet) {
+            for (let x = 0; x < resultSet.rows.length; x++) {
+              console.log(
+                'ID: ',
+                resultSet.rows.item(x).ID,
+                ', Title: ',
+                resultSet.rows.item(x).Title,
+                ', Recipe: ',
+                resultSet.rows.item(x).Recipe,
+              )
+            }
+          },
+          function (tx, error) {
+            console.log('SELECT error: ' + error.message)
+          },
+        )
+      },
+      function (error) {
+        console.log('transaction error: ' + error.message)
+      },
+      function () {
+        console.log('transaction ok')
+      },
+    )
+  }
+
+  const getSweetData = () => {
+    db.transaction(
+      function (tx) {
+        const query = 'SELECT * FROM SweetRecipes'
+
+        tx.executeSql(
+          query,
+          [],
+          function (tx, resultSet) {
+            for (let x = 0; x < resultSet.rows.length; x++) {
+              console.log(
+                'ID: ',
+                resultSet.rows.item(x).ID,
+                ', Title: ',
+                resultSet.rows.item(x).Title,
+                ', Recipe: ',
+                resultSet.rows.item(x).Recipe,
+              )
+            }
+          },
+          function (tx, error) {
+            console.log('SELECT error: ' + error.message)
+          },
+        )
+      },
+      function (error) {
+        console.log('transaction error: ' + error.message)
+      },
+      function () {
+        console.log('transaction ok')
+      },
+    )
   }
 
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
       <View style={Styles.boxIntro}>
+        <ButtonGroup
+          onPress={onPress}
+          selectedIndex={selectedIndex}
+          buttons={['Insert Salty Data', 'Insert Sweet Data']}
+        />
+        {/* <TouchableOpacity style={Styles.button} onPress={onPress}>
+          <Text>Insert Salty Data</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={Styles.button} onPress={onPress}>
-          <Text>Insert Data</Text>
+          <Text>Insert Sweet Data</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={Styles.button} onPress={onSaltyShow}>
+          <Text>Show Salty Data</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={Styles.button} onPress={onShow}>
-          <Text>Show Data</Text>
+        <TouchableOpacity style={Styles.button} onPress={onSweetShow}>
+          <Text>Show Sweet Data</Text>
         </TouchableOpacity>
-        <Text style={Styles.textIntro}>test</Text>
+        <TouchableOpacity style={Styles.button} onPress={getSaltyData}>
+          <Text>Get Salty Data</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={Styles.button} onPress={getSweetData}>
+          <Text>Get Sweet Data</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
