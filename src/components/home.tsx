@@ -1,7 +1,7 @@
 import React from 'react'
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
 
-const Home = () => {
+const Home: React.FunctionComponent = () => {
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />

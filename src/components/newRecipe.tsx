@@ -8,7 +8,7 @@ import { Input, ButtonGroup } from 'react-native-elements'
 //Database Stuff
 import { openDatabase } from 'react-native-sqlite-storage'
 
-const NewRecipe = () => {
+const NewRecipe: React.FunctionComponent = () => {
   const db = openDatabase({
     name: 'recipeTest2.db',
     location: 'default',
@@ -29,7 +29,7 @@ const NewRecipe = () => {
 
   const onTitleSubmit = () => recipeRef?.current.focus()
 
-  const changeCategory = (number) => {
+  const changeCategory = (number: number) => {
     setSelectedIndex(number)
     if (number === 0) {
       console.log('--------------------------')
@@ -40,7 +40,7 @@ const NewRecipe = () => {
     }
   }
 
-  const resetInputs = () => {
+  const resetInputs: void = () => {
     setTextRecipe('')
     setTextTitle('')
     setSelectedIndex(NaN)
@@ -123,7 +123,7 @@ const NewRecipe = () => {
           placeholder="Ricetta"
           type="text"
           textBreakStrategy="balanced"
-          onChangeText={(textRecipe) => setTextRecipe(textRecipe)}
+          onChangeText={(textRecipe): string => setTextRecipe(textRecipe)}
           returnKeyType="send"
           leftIcon={{ type: 'feather', name: 'italic', size: 20 }}
           rightIcon={{ type: 'feather', name: 'delete', size: 20 }}

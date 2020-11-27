@@ -14,16 +14,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { data } from '../data'
 
-const screenWidth = Dimensions.get('screen').width
+const screenWidth: number = Dimensions.get('screen').width
 
-const Salty = ({ navigation }) => {
+const Salty: React.FunctionComponent = ({ navigation }: string) => {
   console.log('Log Salty Recipe')
 
   const backButton = () => {
     navigation.navigate('Ricettario')
   }
 
-  const saltyData = data.find((t) => t.title === 'Salty')
+  const saltyData: { title: string; data: { id: number; title: string; recipe: string } } = data.find(
+    (t) => t.title === 'Salty',
+  )
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
