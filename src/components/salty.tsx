@@ -19,10 +19,10 @@ import { data } from '../data'
 
 const screenWidth: number = Dimensions.get('screen').width
 
-const Salty: React.FunctionComponent = ({ navigation }: string) => {
+const Salty: React.FunctionComponent = ({ navigation }) => {
   console.log('Log Salty Recipe')
 
-  const backButton = () => {
+  const backButton = (): void => {
     navigation.navigate('Ricettario')
   }
 

@@ -12,7 +12,6 @@ import React from 'react'
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-
 import { createStackNavigator } from '@react-navigation/stack'
 
 //Icon
@@ -26,11 +25,12 @@ import Salty from './components/salty'
 import Sweet from './components/sweet'
 import testDatabase from './components/testDatabase'
 
-const App = () => {
+const App = (): React.FunctionComponent => {
   const Stack = createStackNavigator()
   const MaterialBottomTabs = createMaterialBottomTabNavigator()
 
-  const TabNavigator = () => {
+  const TabNavigator = (): object => {
+    let iconName: string
     return (
       <MaterialBottomTabs.Navigator
         initialRouteName="Home"
@@ -38,9 +38,9 @@ const App = () => {
         activeColor="white"
         keyboardHidesNavigationBar={true}
         shifting={true} //false this if don't like the effect of hiding label
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color }) => {
-            let iconName: string
+        screenOptions={({ route }): object => ({
+          // eslint-disable-next-line react/display-name
+          tabBarIcon: ({ focused, color }): object => {
             if (route.name === 'Home') {
               iconName = focused ? 'home' : 'home-outline'
             } else if (route.name === 'Ricettario') {
