@@ -5,7 +5,16 @@ import { data } from '../data'
 //input & button element, we can even use default stuff but let's try this
 import { Input, ButtonGroup } from 'react-native-elements'
 
-const NewRecipe = () => {
+//Database Stuff
+import { openDatabase } from 'react-native-sqlite-storage'
+
+const NewRecipe: React.FunctionComponent = () => {
+  const db = openDatabase({
+    name: 'recipeTest2.db',
+    location: 'default',
+    createFromLocation: '~www/recipeTest2.db',
+  })
+
   console.log('--------------------------')
   console.log('Log del newRecipe')
   console.log('--------------------------')
@@ -18,9 +27,9 @@ const NewRecipe = () => {
 
   const recipeRef = useRef(null)
 
-  const onTitleSubmit = () => recipeRef?.current.focus()
+  const onTitleSubmit = (): void => recipeRef?.current.focus()
 
-  const changeCategory = (number) => {
+  const changeCategory = (number: number): void => {
     setSelectedIndex(number)
     if (number === 0) {
       console.log('--------------------------')
@@ -31,36 +40,56 @@ const NewRecipe = () => {
     }
   }
 
-  const resetInputs = () => {
+  const resetInputs = (): void => {
     setTextRecipe('')
     setTextTitle('')
     setSelectedIndex(NaN)
   }
 
-  const saveRecipe = () => {
+  const saveRecipe = (): void => {
     console.log('--------------------------')
     console.log('title: ', textTitle, ' recipe: ', textRecipe, ' category: ', selectedIndex === 0 ? 'Salty' : 'Sweet')
     console.log('--------------------------')
     console.log(data)
     if (selectedIndex === 0) {
       console.log('inside if')
-      const first = data.filter((t) => t.title === 'Salty')[0]
-      const addedRecipe = {}
-      addedRecipe['id'] = 4
-      addedRecipe['title'] = textTitle
-      addedRecipe['recipe'] = textRecipe
-      first.data.push(addedRecipe)
+      // const first = data.filter((t) => t.title === 'Salty')[0]
+      // const addedRecipe = {}
+      // addedRecipe['id'] = 4
+      // addedRecipe['title'] = textTitle
+      // addedRecipe['recipe'] = textRecipe
+      // first.data.push(addedRecipe)
+
+      db.transaction(
+        function (tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS SaltyRecipes (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title, Recipe)')
+          tx.executeSql('INSERT INTO SaltyRecipes (Title, Recipe) VALUES (?,?)', [`${textTitle}`, `${textRecipe}`])
+        },
+        function (error) {
+          console.log('Transaction ERROR: ', error.message)
+        },
+        function () {
+          console.log('Database creato e ricetta inserita')
+        },
+      )
       Alert.alert('Congratulazioni', 'Hai salvato correttamente la ricetta', [{ text: 'OK', onPress: resetInputs }], {
         cancelable: false,
       })
     } else if (selectedIndex === 1) {
       console.log('inside else if')
-      const first = data.filter((t) => t.title === 'Sweet')[0]
-      const addedRecipe = {}
-      addedRecipe['id'] = 4
-      addedRecipe['title'] = textTitle
-      addedRecipe['recipe'] = textRecipe
-      first.data.push(addedRecipe)
+
+      db.transaction(
+        function (tx) {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS SweetRecipes (ID INTEGER PRIMARY KEY AUTOINCREMENT, Title, Recipe)')
+          tx.executeSql('INSERT INTO SweetRecipes (Title, Recipe) VALUES (?,?)', [`${textTitle}`, `${textRecipe}`])
+        },
+        function (error) {
+          console.log('Transaction ERROR: ', error.message)
+        },
+        function () {
+          console.log('Database creato e ricetta inserita')
+        },
+      )
       Alert.alert('Congratulazioni', 'Hai salvato correttamente la ricetta', [{ text: 'OK', onPress: resetInputs }], {
         cancelable: false,
       })
@@ -94,7 +123,7 @@ const NewRecipe = () => {
           placeholder="Ricetta"
           type="text"
           textBreakStrategy="balanced"
-          onChangeText={(textRecipe) => setTextRecipe(textRecipe)}
+          onChangeText={(textRecipe): string => setTextRecipe(textRecipe)}
           returnKeyType="send"
           leftIcon={{ type: 'feather', name: 'italic', size: 20 }}
           rightIcon={{ type: 'feather', name: 'delete', size: 20 }}
