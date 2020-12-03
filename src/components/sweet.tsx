@@ -12,18 +12,21 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import { recipeList } from '../types/recipeList'
+import { recipeListItem } from '../types/recipeListItem'
+
 import { data } from '../data'
 
-const screenWidth = Dimensions.get('screen').width
+const screenWidth: number = Dimensions.get('screen').width
 
-const Salty = ({ navigation }) => {
-  console.log('Log Salty Recipe')
+const Sweet: React.FunctionComponent = ({ navigation }) => {
+  console.log('Log Sweet Recipe')
 
-  const backButton = () => {
+  const backButton = (): void => {
     navigation.navigate('Ricettario')
   }
 
-  const saltyData = data.find((t) => t.title === 'Salty')
+  const sweetData: recipeList & recipeListItem = data.find((t) => t.title === 'Sweet')
   return (
     <SafeAreaView style={Styles.container}>
       <StatusBar backgroundColor="#e57373" barStyle="dark-content" />
@@ -35,10 +38,10 @@ const Salty = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={Styles.titleCategoryContainer}>
-          <Text style={Styles.titleCategory}>Salty Recipes</Text>
+          <Text style={Styles.titleCategory}>Sweet Recipes</Text>
         </View>
         <SectionList
-          sections={[saltyData]}
+          sections={[sweetData]}
           keyExtractor={(item, index) => item + index}
           renderItem={({ item, index }) =>
             index % 2 == 0 ? (
@@ -186,4 +189,4 @@ const Styles = StyleSheet.create({
   //Fin Button Styles
 })
 
-export default Salty
+export default Sweet

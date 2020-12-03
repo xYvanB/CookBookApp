@@ -2,14 +2,14 @@ import React from 'react'
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Menu = ({ navigation }) => {
+const Menu: React.FunctionComponent = ({ navigation }) => {
   console.log('Log del menu')
 
-  const saltyButton = () => {
+  const saltyButton = (): void => {
     navigation.navigate('Salty')
   }
 
-  const sweetButton = () => {
+  const sweetButton = (): void => {
     navigation.navigate('Sweet')
   }
 

@@ -6,7 +6,7 @@ import { ButtonGroup } from 'react-native-elements'
 
 import { openDatabase } from 'react-native-sqlite-storage'
 
-const testDatabase = () => {
+const testDatabase: React.FunctionComponent = () => {
   const db = openDatabase({
     name: 'recipeTest2.db',
     location: 'default',
@@ -18,7 +18,7 @@ const testDatabase = () => {
   //used for "Button group" component, it require a number as an index, so no string allowed
   const [selectedIndex, setSelectedIndex] = useState(NaN)
 
-  const onPress = (number) => {
+  const onPress = (number: number): void => {
     setSelectedIndex(number)
     console.log('premimi tutto')
     if (number === 0) {
