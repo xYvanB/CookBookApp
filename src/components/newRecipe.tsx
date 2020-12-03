@@ -27,9 +27,9 @@ const NewRecipe: React.FunctionComponent = () => {
 
   const recipeRef = useRef(null)
 
-  const onTitleSubmit = () => recipeRef?.current.focus()
+  const onTitleSubmit = (): void => recipeRef?.current.focus()
 
-  const changeCategory = (number: number) => {
+  const changeCategory = (number: number): void => {
     setSelectedIndex(number)
     if (number === 0) {
       console.log('--------------------------')
@@ -40,13 +40,13 @@ const NewRecipe: React.FunctionComponent = () => {
     }
   }
 
-  const resetInputs: void = () => {
+  const resetInputs = (): void => {
     setTextRecipe('')
     setTextTitle('')
     setSelectedIndex(NaN)
   }
 
-  const saveRecipe = () => {
+  const saveRecipe = (): void => {
     console.log('--------------------------')
     console.log('title: ', textTitle, ' recipe: ', textRecipe, ' category: ', selectedIndex === 0 ? 'Salty' : 'Sweet')
     console.log('--------------------------')

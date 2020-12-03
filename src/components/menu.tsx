@@ -5,11 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const Menu: React.FunctionComponent = ({ navigation }) => {
   console.log('Log del menu')
 
-  const saltyButton = () => {
+  const saltyButton = (): void => {
     navigation.navigate('Salty')
   }
 
-  const sweetButton = () => {
+  const sweetButton = (): void => {
     navigation.navigate('Sweet')
   }
 
