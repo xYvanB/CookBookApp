@@ -8,9 +8,9 @@ import { openDatabase } from 'react-native-sqlite-storage'
 
 const testDatabase: React.FunctionComponent = () => {
   const db = openDatabase({
-    name: 'recipeTest2.db',
+    name: 'recipeTest.db',
     location: 'default',
-    createFromLocation: '~www/recipeTest2.db',
+    createFromLocation: '~www/recipeTest.db',
   })
 
   // console.log('gesu è nato:', db)

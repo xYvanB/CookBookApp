@@ -15,6 +15,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { recipeList } from '../types/recipeList'
 import { recipeListItem } from '../types/recipeListItem'
 
+import { openDatabase } from 'react-native-sqlite-storage'
+
 import { data } from '../data'
 
 const screenWidth: number = Dimensions.get('screen').width
@@ -22,8 +24,48 @@ const screenWidth: number = Dimensions.get('screen').width
 const Salty: React.FunctionComponent = ({ navigation }) => {
   console.log('Log Salty Recipe')
 
+  const db = openDatabase({
+    name: 'recipeTest.db',
+    location: 'default',
+    createFromLocation: '~www/recipeTest.db',
+  })
+
   const backButton = (): void => {
     navigation.navigate('Ricettario')
+  }
+
+    const getSaltyData = () => {
+    db.transaction(
+      function (tx) {
+        const query = 'SELECT * FROM SaltyRecipes'
+
+        tx.executeSql(
+          query,
+          [],
+          function (tx, resultSet) {
+            for (let x = 0; x < resultSet.rows.length; x++) {
+              console.log(
+                'ID: ',
+                resultSet.rows.item(x).ID,
+                ', Title: ',
+                resultSet.rows.item(x).Title,
+                ', Recipe: ',
+                resultSet.rows.item(x).Recipe,
+              )
+            }
+          },
+          function (tx, error) {
+            console.log('SELECT error: ' + error.message)
+          },
+        )
+      },
+      function (error) {
+        console.log('transaction error: ' + error.message)
+      },
+      function () {
+        console.log('transaction ok')
+      },
+    )
   }
 
   const saltyData: recipeList & recipeListItem = data.find((t) => t.title === 'Salty')
